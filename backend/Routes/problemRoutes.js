@@ -14,6 +14,16 @@ router.post("/", verifyToken, requireRole("master"), async (req, res) => {
   }
 });
 
+// Get all problems (public, for users to browse)
+router.get("/", async (req, res) => {
+  try {
+    const problems = await Problem.find().sort({ createdAt: -1 });
+    res.json(problems);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching problems" });
+  }
+});
+
 // Get all problems created by the logged-in master
 router.get("/my", verifyToken, requireRole("master"), async (req, res) => {
   try {
@@ -77,6 +87,7 @@ router.delete("/:id", verifyToken, requireRole("master"), async (req, res) => {
   }
 });
 
+// Get a single problem by ID (public, for users to view/solve)
 router.get("/public/:id", async (req, res) => {
   try {
     const problem = await Problem.findById(req.params.id);

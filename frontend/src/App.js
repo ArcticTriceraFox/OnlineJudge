@@ -10,6 +10,7 @@ import EditProblem from "./pages/EditProblem";
 import ProblemSets from "./pages/ProblemSets";
 import ProblemBrowser from "./pages/ProblemBrowser";
 import ProblemDetails from "./pages/ProblemDetails";
+import Questions from "./pages/Questions";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
          <Route path="/problem-sets" element={<ProblemSets />} />
          <Route path="/problems" element={<ProblemBrowser />} />
          <Route path="/problems/:id" element={<ProblemDetails />} />
+         <Route path="/questions" element={<Questions />} />
       </Routes>
     </div>
   );

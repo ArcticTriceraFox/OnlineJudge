@@ -1,24 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Problem = require("../Models/problem");
-
-// Import your code execution functions
-const { executeCpp } = require("../ExecuteCpp"); // Adjust path as needed
-// In the future, you can add: const { executePython } = require("../ExecutePython"); etc.
-
-// Run code with sample input (for "Run" button)
-router.post("/run", async (req, res) => {
-  const { code, language, input } = req.body;
-  try {
-    if (language !== "cpp") {
-      return res.status(400).json({ success: false, message: "Only C++ is supported right now." });
-    }
-    const execResult = await executeCpp(code, input || "");
-    res.json({ success: true, output: execResult.output });
-  } catch (err) {
-    res.status(500).json({ success: false, message: "Code execution failed" });
-  }
-});
+const { generateFile } = require("../generateFile");
+const { executeCpp } = require("../ExecuteCpp");
+const { executePython } = require("../ExecutePython");
+const { executeJava } = require("../ExecuteJava");
 
 // Submit code: run against all test cases
 router.post("/submit", async (req, res) => {
@@ -27,19 +13,30 @@ router.post("/submit", async (req, res) => {
     const problem = await Problem.findById(problemId);
     if (!problem) return res.status(404).json({ result: "Problem not found" });
 
-    // Parse test cases: each line is "input|expected_output"
-    const testCases = (problem.testCases || "").split("\n").filter(Boolean);
+    // Parse test cases: support array or string format
+    let testCases = [];
+    if (Array.isArray(problem.testCases)) {
+      testCases = problem.testCases;
+    } else {
+      testCases = (problem.testCases || "").split("\n").filter(Boolean).map(line => {
+        const [input, output] = line.split("|");
+        return { input, output };
+      });
+    }
+
     let passed = 0, total = testCases.length, details = [];
 
-    for (const line of testCases) {
-      const [input, expected] = line.split("|");
-      // Run code with this input
+    for (const { input, output: expected } of testCases) {
+      const filepath = await generateFile(language, code);
       let execResult;
       if (language === "cpp") {
-        execResult = await executeCpp(code, input || "");
+        execResult = await executeCpp(filepath, input || "");
+      } else if (language === "python") {
+        execResult = await executePython(filepath, input || "");
+      } else if (language === "java") {
+        execResult = await executeJava(filepath, input || "");
       } else {
-        // Future: add support for other languages here
-        return res.status(400).json({ result: "Only C++ is supported right now." });
+        return res.status(400).json({ result: "Language not supported." });
       }
       const actual = (execResult.output || "").trim();
       const exp = (expected || "").trim();

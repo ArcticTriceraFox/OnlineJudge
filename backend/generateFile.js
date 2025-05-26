@@ -9,7 +9,12 @@ if(!fs.existsSync(dirCodes)) {
 
 const generateFile = async (format, content) => {  
     const jobId = uuidv4();
-    const fileName = `${jobId}.${format}`;
+    let extension;
+    if (format === "cpp") extension = "cpp";
+    else if (format === "python") extension = "py";
+    else if (format === "java") extension = "java";
+    else extension = format; // fallback
+    const fileName = `${jobId}.${extension}`;
     const filePath = path.join(dirCodes, fileName);
     await fs.writeFileSync(filePath, content);
     return filePath;

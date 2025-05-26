@@ -1,0 +1,93 @@
+*,
+::before,
+::after{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+label{
+  font-size: 20px;
+}
+
+html,
+body{
+  height:  100%;
+  width: 100%;
+}
+
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container{
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  width: 100%;
+  /* height: 100%; */
+  background-color: pink;
+  padding: 32px 48px;
+  border-radius: 8px;
+  max-width: 400px;
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+}
+
+.container > h1{
+  /* font-size: 32px; */
+  margin-bottom: 16px;
+}
+
+.container > form{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center;
+  width: 100%;  */
+  gap: 10px;
+}
+
+.container div{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center;
+  width: 100%; */
+}
+
+.container input{
+  width: 100%;
+  font-size: 20px;
+  padding: 8px;
+  /* border-radius: 4px; */
+  border: 1px solid #ccc;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+}
+
+.container input::placeholder{
+  color: #ccc;
+  font-size: 12px;
+  font-style: italic;
+}
+
+button{
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px 0;
+} 
+
+/* .toast {
+  font-size: 3rem;
+} */
+

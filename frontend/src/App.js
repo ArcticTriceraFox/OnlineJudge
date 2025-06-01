@@ -11,10 +11,12 @@ import ProblemSets from "./pages/ProblemSets";
 import ProblemBrowser from "./pages/ProblemBrowser";
 import ProblemDetails from "./pages/ProblemDetails";
 import Questions from "./pages/Questions";
+import ThemeToggle from "./components/ThemeToggle";
 
 function App() {
   return (
     <div className="App">
+      <ThemeToggle />
       <Routes>
         <Route path='/' element={<Navigate to = "/login" />} />
         <Route path='/login' element={<Login/>} />

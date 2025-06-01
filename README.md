@@ -1,3 +1,27 @@
+## Project Progress & Recent Changes
+
+### UI/UX Redesign (May/June 2025)
+- Redesigned the Signup and EditProblem pages for a clean, modern, and responsive look using Tailwind CSS.
+- Improved spacing, color schemes, and layout for a more professional and user-friendly experience.
+- Grouped form fields into logical sections and applied responsive grid layouts.
+- Enhanced input fields, textareas, and buttons with consistent styles and interactive effects.
+- Removed outdated inline styles and unused variables for code cleanliness.
+- Ensured all main pages are visually appealing and work well across all screen sizes.
+
+### Codebase Cleanup
+- Removed unused imports (e.g., `useTheme` from EditProblem.js) and variables for better maintainability.
+- Refactored form layouts and components for clarity and reusability.
+
+### AI Features
+- Added an AI-powered code review tool (`backend/aiCodeReview.js`) to provide automated feedback and suggestions on submitted code.
+
+### Next Steps
+- Verify that all UI changes are reflected in the running application and address any remaining visual or functional issues.
+- Ensure full responsiveness and visual consistency across all devices.
+- Add Docker support for easier deployment (planned).
+
+---
+
 ## Coding Platform
 
 A full-stack coding platform inspired by LeetCode, built with React (frontend), Node.js/Express (backend), and MongoDB. Supports user and master roles, problem management, code execution in C++, Python, and Java, and a modern, responsive UI.

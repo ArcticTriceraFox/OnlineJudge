@@ -16,6 +16,7 @@ const problemSetRoutes = require('./Routes/problemSetRoutes');
 const submissionRoutes = require('./Routes/submissionRoutes');
 const { executePython } = require("./ExecutePython");
 const { executeJava } = require("./ExecuteJava");
+const { aiCodeReview } = require('./aiCodeReview');
 
 
 app.use(bodyParser.json());
@@ -70,6 +71,19 @@ app.post('/run', async (req, res) => {
     }
 });
 
+app.post('/ai-review', async (req, res) => {
+  const { code, language, problemTitle, problemDescription } = req.body;
+  if (!code || !language || !problemTitle || !problemDescription) {
+    return res.status(400).json({ success: false, message: 'Code, language, problemTitle, and problemDescription are required.' });
+  }
+  try {
+    const review = await aiCodeReview(code, language, problemTitle, problemDescription);
+    res.json({ success: true, review });
+  } catch (err) {
+    console.error('AI Review error:', err);
+    res.json({ success: false, message: 'AI review failed.' });
+  }
+});
 
 app.get('/', (req, res) => {   
     res.status(200).json({ message: 'Hello World, good you are running!' });

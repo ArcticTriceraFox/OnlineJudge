@@ -2,8 +2,10 @@ import { ToastContainer } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { handleError, handleSuccess } from "../utils";
+import { useTheme } from "../ThemeContext";
 
 function Login() {
+  const { theme } = useTheme();
   const [LogInfo, setLogInfo] = useState({
     email: "",
     password: "",
@@ -53,63 +55,77 @@ function Login() {
   };
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%)',
-      padding: 0,
-      margin: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <div style={{
-        maxWidth: 400,
-        width: '100%',
-        margin: '40px auto',
-        background: 'rgba(255,192,203,0.92)',
-        borderRadius: 18,
-        boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
-        padding: 36,
-        position: 'relative',
-        backdropFilter: 'blur(6px)',
-      }}>
-        <h1 style={{
-          marginBottom: 24,
-          color: '#232526',
-          fontWeight: 900,
-          letterSpacing: 1,
-          fontSize: 32,
-          textAlign: 'center',
-          textShadow: '0 2px 8px #e0e7ef',
-        }}>Login</h1>
-        <form onSubmit={handleLogin}>
-          <div style={{ marginBottom: 18 }}>
-            <label style={{ fontWeight: 600, color: '#333', marginBottom: 6, display: 'block' }}>Login as:</label>
-            <div style={{ display: 'flex', gap: 24, alignItems: 'center', marginTop: 4 }}>
-              <label style={{ fontWeight: 500, color: '#232526', fontSize: 16 }}>
+    <div
+      style={{
+        minHeight: '100vh',
+        width: '100vw',
+        background: 'linear-gradient(135deg, #e0e7ef 0%, #f8fafc 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'Inter, Segoe UI, Arial, sans-serif',
+      }}
+    >
+      <div
+        style={{
+          width: '100%',
+          maxWidth: 420,
+          margin: '48px auto',
+          background: 'rgba(255,255,255,0.98)',
+          borderRadius: 20,
+          boxShadow: '0 8px 32px 0 rgba(60,72,100,0.13)',
+          padding: '40px 36px',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0,
+        }}
+      >
+        <h1
+          style={{
+            marginBottom: 28,
+            color: '#232526',
+            fontWeight: 900,
+            letterSpacing: 1,
+            fontSize: 34,
+            textAlign: 'center',
+            fontFamily: 'Inter, Segoe UI, Arial, sans-serif',
+          }}
+        >
+          Login
+        </h1>
+        <form onSubmit={handleLogin} style={{ width: '100%' }}>
+          <div style={{ marginBottom: 22 }}>
+            <label style={{ fontWeight: 600, color: '#333', marginBottom: 8, display: 'block', fontSize: 16 }}>
+              Login as:
+            </label>
+            <div style={{ display: 'flex', gap: 32, alignItems: 'center', marginTop: 6 }}>
+              <label style={{ fontWeight: 500, color: '#232526', fontSize: 16, display: 'flex', alignItems: 'center', gap: 6 }}>
                 <input
                   type="radio"
                   name="role"
                   value="user"
                   checked={role === "user"}
                   onChange={() => setRole("user")}
-                  style={{ marginRight: 6 }}
-                /> User
+                  style={{ accentColor: '#5b86e5' }}
+                />
+                User
               </label>
-              <label style={{ fontWeight: 500, color: '#232526', fontSize: 16 }}>
+              <label style={{ fontWeight: 500, color: '#232526', fontSize: 16, display: 'flex', alignItems: 'center', gap: 6 }}>
                 <input
                   type="radio"
                   name="role"
                   value="master"
                   checked={role === "master"}
                   onChange={() => setRole("master")}
-                  style={{ marginRight: 6 }}
-                /> Master
+                  style={{ accentColor: '#5b86e5' }}
+                />
+                Master
               </label>
             </div>
           </div>
-          <div style={{ marginBottom: 18 }}>
-            <label htmlFor="email" style={labelStyle}>Email</label>
+          <div style={{ marginBottom: 22 }}>
+            <label htmlFor="email" style={{ fontWeight: 600, color: '#333', marginBottom: 8, display: 'block', fontSize: 16 }}>Email</label>
             <input
               onChange={handleChange}
               value={LogInfo.email}
@@ -118,10 +134,11 @@ function Login() {
               style={inputStyle}
               id="email"
               autoComplete="username"
+              placeholder="Enter your email"
             />
           </div>
-          <div style={{ marginBottom: 18 }}>
-            <label htmlFor="password" style={labelStyle}>Password</label>
+          <div style={{ marginBottom: 22 }}>
+            <label htmlFor="password" style={{ fontWeight: 600, color: '#333', marginBottom: 8, display: 'block', fontSize: 16 }}>Password</label>
             <input
               onChange={handleChange}
               value={LogInfo.password}
@@ -130,16 +147,25 @@ function Login() {
               style={inputStyle}
               id="password"
               autoComplete="current-password"
+              placeholder="Enter your password"
             />
           </div>
           <button type="submit" style={buttonStyle}>Login</button>
-          <div style={{ marginTop: 18, textAlign: 'center', fontSize: 15 }}>
+          <div style={{ marginTop: 22, textAlign: 'center', fontSize: 15 }}>
             Don't have an account?{' '}
-            <Link to="/signup" style={{ color: '#007bff', textDecoration: 'underline', fontWeight: 600 }}>Signup</Link>
+            <Link to="/signup" style={{ color: '#5b86e5', textDecoration: 'underline', fontWeight: 600 }}>Signup</Link>
           </div>
         </form>
         <ToastContainer />
       </div>
+      <style>{`
+        @media (max-width: 600px) {
+          div[style*='max-width: 420px'] {
+            padding: 18px 6vw !important;
+            min-width: 0 !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

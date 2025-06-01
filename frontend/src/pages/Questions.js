@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../ThemeContext";
 
 function Questions() {
+  const { theme } = useTheme();
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -15,18 +17,44 @@ function Questions() {
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%)', padding: 0, margin: 0 }}>
-      <div style={{
-        maxWidth: 900,
-        margin: "40px auto",
-        background: "#fff",
-        borderRadius: 18,
-        boxShadow: "0 8px 32px rgba(0,0,0,0.13)",
-        padding: 36,
-        position: "relative"
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-          <h2 style={{ marginBottom: 0, color: "#232526", fontWeight: 800, letterSpacing: 1, fontSize: 36, textAlign: 'center', textShadow: '0 2px 8px #e0e7ef' }}>
+    <div
+      className={`questions-root ${theme}-mode`}
+      style={{
+        minHeight: '100vh',
+        width: '100vw',
+        background: theme === 'dark'
+          ? 'linear-gradient(135deg, #181c24 0%, #232b3a 100%)'
+          : 'linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '32px 0',
+      }}
+    >
+      <div
+        className="questions-card"
+        style={{
+          width: '100%',
+          maxWidth: 900,
+          minWidth: 320,
+          borderRadius: 18,
+          boxShadow:
+            theme === 'dark'
+              ? '0 8px 32px rgba(20,20,30,0.7)'
+              : '0 8px 32px rgba(66,68,90,0.13)',
+          background:
+            theme === 'dark'
+              ? 'rgba(30,34,44,0.92)'
+              : 'rgba(255,255,255,0.92)',
+          padding: '36px 32px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 24,
+          marginTop: 48, // Add margin to push card below the blue bar
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2 style={{ marginBottom: 0, color: "#232526", fontWeight: 800, letterSpacing: 1, fontSize: 36, textAlign: 'center', textShadow: '0 2px 8px #e0e7ef', zIndex: 2 }}>
             All Questions
           </h2>
           <button
@@ -43,7 +71,7 @@ function Questions() {
               boxShadow: '0 2px 8px rgba(91,134,229,0.13)',
               transition: 'background 0.2s',
               outline: 'none',
-              marginLeft: 16
+              zIndex: 2,
             }}
           >
             Home
@@ -54,7 +82,11 @@ function Questions() {
         ) : problems.length === 0 ? (
           <p style={{ textAlign: 'center', color: '#888', fontSize: 20, fontWeight: 500 }}>No questions found.</p>
         ) : (
-          <div style={{ overflowX: 'auto', borderRadius: 12, boxShadow: '0 2px 8px #0001', background: '#f8fafc' }}>
+          <div style={{
+            width: '100%',
+            overflowX: 'auto',
+            marginTop: 24,
+          }}>
             <table
               className="table"
               style={{ width: "100%", background: "#fff", borderRadius: 12, borderCollapse: 'collapse', minWidth: 700 }}

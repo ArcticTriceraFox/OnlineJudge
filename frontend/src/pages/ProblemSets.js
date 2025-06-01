@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../ThemeContext";
 
 function ProblemSets() {
+  const { theme } = useTheme();
   const [sets, setSets] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -58,17 +60,7 @@ function ProblemSets() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%)",
-        padding: 0,
-        margin: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className={`container ${theme}-mode`}>
       <div
         style={{
           maxWidth: 480,

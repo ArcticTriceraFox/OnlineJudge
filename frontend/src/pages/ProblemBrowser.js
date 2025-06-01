@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../ThemeContext";
 
 function ProblemBrowser() {
+  const { theme } = useTheme();
   const [sets, setSets] = useState([]);
   const [selectedSet, setSelectedSet] = useState(null);
   const [problems, setProblems] = useState([]);
@@ -20,7 +22,7 @@ function ProblemBrowser() {
   };
 
   return (
-    <div className="container">
+    <div className={`container ${theme}-mode`}>
       <h2>Browse Problem Sets</h2>
       <ul className="list-group mb-4">
         {sets.map(set => (

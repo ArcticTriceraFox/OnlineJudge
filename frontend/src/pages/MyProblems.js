@@ -11,7 +11,7 @@ function MyProblems() {
   const fetchProblems = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8080/problems/my", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/problems/my`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
@@ -31,7 +31,7 @@ function MyProblems() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this problem?")) return;
     try {
-      const res = await fetch(`http://localhost:8080/problems/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/problems/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,

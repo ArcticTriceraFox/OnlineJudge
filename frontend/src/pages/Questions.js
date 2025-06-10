@@ -9,7 +9,7 @@ function Questions() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8080/problems")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/problems`)
       .then((res) => res.json())
       .then((data) => setProblems(Array.isArray(data) ? data : []))
       .catch(() => setProblems([]))

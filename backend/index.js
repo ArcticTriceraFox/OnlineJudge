@@ -18,7 +18,6 @@ const { executePython } = require("./ExecutePython");
 const { executeJava } = require("./ExecuteJava");
 const { aiCodeReview } = require('./aiCodeReview');
 
-
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/auth', AuthRouter); //use the auth router)
@@ -89,7 +88,7 @@ app.get('/', (req, res) => {
     res.status(200).json({ message: 'Hello World, good you are running!' });
 });
  
-app.listen(PORT, () => {   
+app.listen(PORT, '0.0.0.0', () => {   
     console.log(`Server is running on port ${PORT}`);
 });
 

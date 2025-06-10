@@ -10,7 +10,7 @@ function ProblemSets() {
   const navigate = useNavigate();
 
   const fetchSets = async () => {
-    const res = await fetch("http://localhost:8080/problem-sets/my", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/problem-sets/my`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
       },
@@ -25,7 +25,7 @@ function ProblemSets() {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8080/problem-sets", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/problem-sets`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ function ProblemSets() {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this problem set?")) return;
-    const res = await fetch(`http://localhost:8080/problem-sets/${id}`, {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/problem-sets/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,

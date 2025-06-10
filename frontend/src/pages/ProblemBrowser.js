@@ -9,14 +9,14 @@ function ProblemBrowser() {
   const [problems, setProblems] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/problem-sets")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/problem-sets`)
       .then(res => res.json())
       .then(data => setSets(data.problemSets || []));
   }, []);
 
   const handleSetClick = (setName) => {
     setSelectedSet(setName);
-    fetch(`http://localhost:8080/problems/set/${setName}`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/problems/set/${setName}`)
       .then(res => res.json())
       .then(data => setProblems(data.problems || []));
   };

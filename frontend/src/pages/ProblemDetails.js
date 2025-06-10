@@ -32,7 +32,7 @@ int main() {
   const [language, setLanguage] = useState("cpp");
 
   useEffect(() => {
-    fetch(`http://localhost:8080/problems/public/${id}`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/problems/public/${id}`)
       .then(res => res.json())
       .then(data => setProblem(data.problem));
   }, [id]);
@@ -54,7 +54,7 @@ int main() {
     setLoading(true);
     setOutput("");
     try {
-      const response = await fetch("http://localhost:8080/run", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/run`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ language, code, input: userInput }),
@@ -76,7 +76,7 @@ int main() {
     setLoading(true);
     setOutput("Submitting...");
     try {
-      const response = await fetch("http://localhost:8080/submit", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ language, code, problemId: id }),
@@ -94,7 +94,7 @@ int main() {
     setAiLoading(true);
     setAiReview("");
     try {
-      const response = await fetch("http://localhost:8080/ai-review", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/ai-review`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

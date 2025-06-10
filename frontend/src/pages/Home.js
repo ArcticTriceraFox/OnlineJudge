@@ -16,7 +16,7 @@ int main() {
     public static void main(String[] args) {
         System.out.println("Hello World");
     }
-}`
+}`,
 };
 
 function Home() {
@@ -31,9 +31,9 @@ function Home() {
   useEffect(() => {
     setLoggedInUser(localStorage.getItem("firstName"));
     // Fetch all problems
-    fetch("http://localhost:8080/problems")
-      .then(res => res.json())
-      .then(data => setProblems(Array.isArray(data) ? data : []))
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/problems`)
+      .then((res) => res.json())
+      .then((data) => setProblems(Array.isArray(data) ? data : []))
       .catch(() => setProblems([]));
   }, []);
 
@@ -41,9 +41,9 @@ function Home() {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("firstName");
     localStorage.removeItem("lastName");
-    handleSuccess('User logged out!');
+    handleSuccess("User logged out!");
     setTimeout(() => {
-      navigate('/login');
+      navigate("/login");
     }, 1000);
   };
 
@@ -59,7 +59,7 @@ function Home() {
     setLoading(true);
     setOutput("");
     try {
-      const response = await fetch("http://localhost:8080/run", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/run`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ language, code }),
@@ -80,19 +80,21 @@ function Home() {
   };
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "linear-gradient(135deg, #232526 0%, #414345 100%)",
-      padding: 0,
-      margin: 0,
-      fontFamily: "Segoe UI, sans-serif",
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-    }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #232526 0%, #414345 100%)",
+        padding: 0,
+        margin: 0,
+        fontFamily: "Segoe UI, sans-serif",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+      }}
+    >
       <div
         style={{
-          width: '95vw',
+          width: "95vw",
           maxWidth: 1400,
           margin: "40px auto",
           background: "#fff",
@@ -100,24 +102,34 @@ function Home() {
           boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
           padding: 32,
           position: "relative",
-          display: 'flex',
-          flexDirection: 'row',
+          display: "flex",
+          flexDirection: "row",
           gap: 48,
           minHeight: 600,
         }}
       >
         {/* Left: Code editor and controls */}
-        <div style={{ flex: 1.2, minWidth: 320, display: 'flex', flexDirection: 'column' }}>
-          <div style={{
+        <div
+          style={{
+            flex: 1.2,
+            minWidth: 320,
             display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 24,
-            flexWrap: 'wrap',
-            gap: 16,
-          }}>
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 24,
+              flexWrap: "wrap",
+              gap: 16,
+            }}
+          >
             <h2 style={{ margin: 0, color: "#232526", fontSize: 28 }}>
-              👋 Welcome, <span style={{ color: "#007bff" }}>{loggedInUser}</span>
+              👋 Welcome,{" "}
+              <span style={{ color: "#007bff" }}>{loggedInUser}</span>
             </h2>
             <button
               onClick={handleLogout}
@@ -129,15 +141,20 @@ function Home() {
                 padding: "8px 18px",
                 fontWeight: 600,
                 cursor: "pointer",
-                boxShadow: "0 2px 8px rgba(255,88,88,0.1)"
+                boxShadow: "0 2px 8px rgba(255,88,88,0.1)",
               }}
             >
               Logout
             </button>
           </div>
-          <form onSubmit={handleRun} style={{ width: '100%' }}>
+          <form onSubmit={handleRun} style={{ width: "100%" }}>
             <div style={{ marginBottom: 16 }}>
-              <label htmlFor="language" style={{ fontWeight: 600, marginRight: 8 }}>Language:</label>
+              <label
+                htmlFor="language"
+                style={{ fontWeight: 600, marginRight: 8 }}
+              >
+                Language:
+              </label>
               <select
                 id="language"
                 value={language}
@@ -149,13 +166,19 @@ function Home() {
                 <option value="java">Java</option>
               </select>
             </div>
-            <label htmlFor="code" style={{
-              display: "block",
-              marginBottom: 8,
-              fontWeight: 600,
-              color: "#333"
-            }}>
-              {language === "cpp" ? "C++" : language.charAt(0).toUpperCase() + language.slice(1)} Code:
+            <label
+              htmlFor="code"
+              style={{
+                display: "block",
+                marginBottom: 8,
+                fontWeight: 600,
+                color: "#333",
+              }}
+            >
+              {language === "cpp"
+                ? "C++"
+                : language.charAt(0).toUpperCase() + language.slice(1)}{" "}
+              Code:
             </label>
             <textarea
               rows={18}
@@ -175,10 +198,10 @@ function Home() {
                 transition: "border 0.2s",
                 minHeight: 320,
                 maxHeight: 600,
-                boxSizing: 'border-box',
+                boxSizing: "border-box",
               }}
               value={code}
-              onChange={e => setCode(e.target.value)}
+              onChange={(e) => setCode(e.target.value)}
             />
             <button
               type="submit"
@@ -193,7 +216,7 @@ function Home() {
                 fontSize: 18,
                 cursor: loading ? "not-allowed" : "pointer",
                 boxShadow: "0 2px 8px rgba(91,134,229,0.1)",
-                transition: "background 0.2s"
+                transition: "background 0.2s",
               }}
             >
               {loading ? "Running..." : "Run Code"}
@@ -210,7 +233,7 @@ function Home() {
                 fontWeight: 700,
                 fontSize: 18,
                 cursor: "pointer",
-                marginBottom: 16
+                marginBottom: 16,
               }}
               onClick={() => navigate("/questions")}
             >
@@ -220,27 +243,39 @@ function Home() {
           <ToastContainer />
         </div>
         {/* Right: Output box */}
-        <div style={{ flex: 1, minWidth: 280, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-          <div style={{
-            background: "#232526",
-            borderRadius: 8,
-            padding: 20,
-            minHeight: 80,
-            color: "#0f0",
-            fontFamily: "Fira Mono, monospace",
-            fontSize: 18,
-            boxShadow: "0 2px 8px rgba(35,37,38,0.08)",
-            marginBottom: 24,
-            width: '100%',
-          }}>
-            <h4 style={{ color: "#fff", margin: "0 0 10px 0" }}>Output:</h4>
-            <pre style={{
-              margin: 0,
-              background: "none",
+        <div
+          style={{
+            flex: 1,
+            minWidth: 280,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+          }}
+        >
+          <div
+            style={{
+              background: "#232526",
+              borderRadius: 8,
+              padding: 20,
+              minHeight: 80,
               color: "#0f0",
+              fontFamily: "Fira Mono, monospace",
               fontSize: 18,
-              whiteSpace: "pre-wrap"
-            }}>
+              boxShadow: "0 2px 8px rgba(35,37,38,0.08)",
+              marginBottom: 24,
+              width: "100%",
+            }}
+          >
+            <h4 style={{ color: "#fff", margin: "0 0 10px 0" }}>Output:</h4>
+            <pre
+              style={{
+                margin: 0,
+                background: "none",
+                color: "#0f0",
+                fontSize: 18,
+                whiteSpace: "pre-wrap",
+              }}
+            >
               {output}
             </pre>
           </div>

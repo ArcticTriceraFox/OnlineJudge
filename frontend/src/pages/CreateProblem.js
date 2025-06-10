@@ -24,7 +24,7 @@ function CreateProblem() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/problems", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/problems`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

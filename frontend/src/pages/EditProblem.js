@@ -9,7 +9,7 @@ function EditProblem() {
   // Remove unused theme
 
   useEffect(() => {
-    fetch(`http://localhost:8080/problems/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/problems/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
       },
@@ -29,7 +29,7 @@ function EditProblem() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:8080/problems/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/problems/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

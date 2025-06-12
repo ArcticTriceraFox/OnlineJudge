@@ -51,6 +51,13 @@ app.get('/ping', (req, res) => {
     res.status(200).json({ message: 'pong' });
 });
 
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "../../frontend", "build", "index.html"));
+	});
+}
+
 app.post('/run', async (req, res) => {    
     const {language = "cpp", code, input = "" } = req.body;
     if(code === undefined) {

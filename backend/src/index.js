@@ -9,13 +9,13 @@ const cors = require('cors');
 const AuthRouter = require('./Routes/AuthRouter');
 const { generateFile } = require('./generateFile');
 DBconnection();
-const { executeCpp } = require('./ExecuteCpp');
+const { executeCpp } = require('../ExecuteCpp');
 const PORT = process.env.PORT || 8080;
 const problemRoutes = require('./Routes/problemRoutes');
 const problemSetRoutes = require('./Routes/problemSetRoutes');
 const submissionRoutes = require('./Routes/submissionRoutes');
-const { executePython } = require("./ExecutePython");
-const { executeJava } = require("./ExecuteJava");
+const { executePython } = require("../ExecutePython");
+const { executeJava } = require("../ExecuteJava");
 const { aiCodeReview } = require('./aiCodeReview');
 // const corsOptions = {
 //   origin: "https://www.codemaster69.in", // Change to your frontend domain in production

@@ -5,7 +5,7 @@ WORKDIR /app
 # RUN apk update && apk add --no-cache g++
 # Copy package.json and package-lock.json
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk python3 python3-pip && \
+    apt-get install -y openjdk-17-jdk python3 python3-pip g++ && \
     ln -sf /usr/bin/python3 /usr/bin/python && \
     apt-get clean
 

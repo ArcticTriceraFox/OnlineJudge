@@ -17,7 +17,12 @@ const submissionRoutes = require('./Routes/submissionRoutes');
 const { executePython } = require("./ExecutePython");
 const { executeJava } = require("./ExecuteJava");
 const { aiCodeReview } = require('./aiCodeReview');
-
+// const corsOptions = {
+//   origin: "https://www.codemaster69.in", // Change to your frontend domain in production
+//   credentials: true,
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+// };
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/auth', AuthRouter); //use the auth router)

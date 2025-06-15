@@ -1,100 +1,170 @@
-## Project Progress & Recent Changes
+# CodeMaster
 
-### UI/UX Redesign (May/June 2025)
-- Redesigned the Signup and EditProblem pages for a clean, modern, and responsive look using Tailwind CSS.
-- Improved spacing, color schemes, and layout for a more professional and user-friendly experience.
-- Grouped form fields into logical sections and applied responsive grid layouts.
-- Enhanced input fields, textareas, and buttons with consistent styles and interactive effects.
-- Removed outdated inline styles and unused variables for code cleanliness.
-- Ensured all main pages are visually appealing and work well across all screen sizes.
-
-### Codebase Cleanup
-- Removed unused imports (e.g., `useTheme` from EditProblem.js) and variables for better maintainability.
-- Refactored form layouts and components for clarity and reusability.
-
-### AI Features
-- Added an AI-powered code review tool (`backend/aiCodeReview.js`) to provide automated feedback and suggestions on submitted code.
-
-### Next Steps
-- Verify that all UI changes are reflected in the running application and address any remaining visual or functional issues.
-- Ensure full responsiveness and visual consistency across all devices.
-- Add Docker support for easier deployment (planned).
+CodeMaster is a full-stack coding platform designed for seamless problem management, secure user authentication, and real-time code execution in C++, Python, and Java. The platform is built with a modern React frontend and a robust Node.js/Express backend, leveraging MongoDB for data storage and Docker for containerized deployment.
 
 ---
 
-## Coding Platform
-
-A full-stack coding platform inspired by LeetCode, built with React (frontend), Node.js/Express (backend), and MongoDB. Supports user and master roles, problem management, code execution in C++, Python, and Java, and a modern, responsive UI.
-
 ## Features
 
-- **Role-based Authentication**: User and Master roles, JWT-based login/signup, protected routes.
-- **Dashboards**: Separate dashboards for users and masters, with navigation and management tools.
-- **Problem Management**: Masters can create, edit, and delete problems and problem sets. Problems include title, description, input/output format, constraints, category, and test cases.
-- **Problem Solving**: Users can browse problems, view details, and solve them in a code editor with language selection (C++, Python, Java).
-- **Code Execution**: 
-  - `/run` endpoint: Runs user code with custom input (stdin) for all supported languages.
-  - `/submit` endpoint: Runs user code against all test cases for a problem, returns detailed feedback, and enforces a 4-second timeout.
-- **Test Case Evaluation**: Multi-test-case support, with results and feedback for each case.
-- **Modern UI/UX**: Glassmorphism-inspired cards, gradient backgrounds, responsive layouts, and clear navigation throughout all main pages.
-- **Navigation**: Easy access to home, dashboards, problem lists, and back/logout buttons.
-- **Error Handling**: User-friendly error messages for code and input issues.
+- **User Authentication**
+  - Secure registration and login with JWT-based session management.
+  - Role-based access control (admin/user).
 
-## Tech Stack
-- **Frontend**: React, inline modern CSS, fetch API
-- **Backend**: Node.js, Express, MongoDB, Mongoose
-- **Languages Supported**: C++, Python, Java (code execution)
+- **Problem Management**
+  - Create, edit, and delete coding problems.
+  - Categorize and browse problems.
+  - Personal dashboard for managing your own problems.
 
-## Folder Structure
-```
-backend/
-  Models/           # Mongoose schemas (see problem.js for test case storage)
-  Routes/           # Express routes (problems, problem sets, auth, etc.)
-  Controllers/      # Route logic
-  ExecuteCpp.js     # C++ code execution
-  ExecutePython.js  # Python code execution
-  ExecuteJava.js    # Java code execution
-  generateFile.js   # Handles code file creation
-  index.js          # Main server entry point
-frontend/
-  src/pages/        # All main React pages (Questions, ProblemDetails, CreateProblem, etc.)
-  src/App.css       # (Optional) Global styles
-```
+- **Code Execution**
+  - Real-time code execution for C++, Python, and Java.
+  - Custom input support and instant output display.
 
-## How Test Cases Are Stored
-- Test cases are stored in the MongoDB `problems` collection, in the `testCases` field of each problem document (see `backend/Models/problem.js`).
-- When a user submits code, the backend retrieves the test cases from the database and runs the code against them.
+- **AI Code Review**
+  - Integrated AI-powered feedback on code submissions.
+
+- **Submissions & Tracking**
+  - Submit solutions and receive instant feedback.
+  - Track submission history and results.
+
+- **Admin Tools**
+  - User and problem management capabilities for administrators.
+
+- **Responsive UI**
+  - Intuitive and mobile-friendly interface built with React and Tailwind CSS.
+
+- **Production-Ready**
+  - Dockerized backend and frontend for easy deployment.
+  - Environment variable support for secure configuration.
+
+---
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js, npm
-- MongoDB (local or Atlas)
 
-### Backend Setup
-1. `cd backend`
-2. `npm install`
-3. Create a `.env` file with `MONGO_URI=your_mongodb_connection_string`
-4. `node index.js` (or use nodemon)
-
-### Frontend Setup
-1. `cd frontend`
-2. `npm install`
-3. `npm start`
-
-### Usage
-- Visit `http://localhost:3000` in your browser.
-- Sign up as a User or Master.
-- Masters can create/edit problems and problem sets.
-- Users can browse, solve, and submit problems.
-
-## Customization & Extending
-- Add more languages by extending the backend executor files.
-- Improve UI by editing React pages in `frontend/src/pages/`.
-- Add analytics, leaderboards, or submission history as needed.
-
-## License
-MIT
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or local MongoDB instance
+- [Docker](https://www.docker.com/) (optional, for containerized deployment)
+- [Git](https://git-scm.com/)
 
 ---
-**Note:** For code execution, the backend must have access to compilers/interpreters for C++, Python, and Java. Ensure your server environment is set up accordingly.
+
+### Installation
+
+1. **Clone the Repository**
+   ```sh
+   git clone https://github.com/<your-username>/<your-repo-name>.git
+   cd CodeMaster
+   ```
+
+2. **Configure Environment Variables**
+
+   - **Backend (`backend/.env`):**
+     ```
+     PORT=8080
+     MONGO_URI=your_mongodb_connection_string
+     JWT_SECRET=your_jwt_secret
+     GEMINI_API_KEY=your_gemini_api_key
+     NODE_ENV=dev
+     ```
+
+   - **Frontend (`frontend/.env`):**
+     ```
+     REACT_APP_BACKEND_URL=http://localhost:8080
+     ```
+
+3. **Install Dependencies**
+
+   - **Backend:**
+     ```sh
+     cd backend
+     npm install
+     ```
+
+   - **Frontend:**
+     ```sh
+     cd ../frontend
+     npm install
+     ```
+
+---
+
+### Running Locally
+
+1. **Start the Backend**
+   ```sh
+   cd backend
+   npm start
+   ```
+
+2. **Start the Frontend**
+   ```sh
+   cd ../frontend
+   npm start
+   ```
+
+3. **Access the Application**
+   - Frontend: [http://localhost:3000](http://localhost:3000)
+   - Backend API: [http://localhost:8080](http://localhost:8080)
+
+---
+
+### Running with Docker
+
+1. **Build and Start Containers**
+   ```sh
+   docker-compose up --build
+   ```
+
+2. **Access the Application**
+   - Frontend: [http://localhost:3000](http://localhost:3000)
+   - Backend: [http://localhost:8080](http://localhost:8080)
+
+---
+
+## Deployment
+
+- **Backend:** Deployable on AWS EC2, Render, or any Docker-compatible cloud provider.
+- **Frontend:** Deployable as a static site (e.g., Vercel, Netlify) or served via the backend in production.
+
+---
+
+## Folder Structure
+
+```
+CodeMaster/
+  backend/
+    src/
+      index.js
+      Routes/
+      Models/
+      ...
+    .env
+    Dockerfile
+  frontend/
+    src/
+    .env
+    Dockerfile
+  .gitignore
+  README.md
+  docker-compose.yml
+```
+
+---
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or feature requests.
+
+---
+
+## License
+
+This project is licensed under the [ISC License](LICENSE).
+
+---
+
+## Acknowledgements
+
+- Built with Node.js, Express, React, MongoDB, and Docker.
+- AI code review powered by Google Gemini API.
